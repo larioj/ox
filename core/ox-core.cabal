@@ -1,0 +1,14 @@
+name: ox-core
+version: 0.0.1
+build-type: Simple
+
+library
+  build-depends: base
+               , containers
+               , directory
+               , bytestring
+               , cryptohash
+               , base64-bytestring
+
+executable ox-core
+  main-is: Main.hs
