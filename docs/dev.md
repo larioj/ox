@@ -1,11 +1,9 @@
 # General Documentation
 
-## Git Configuration
--   .gitconfig
+## Configuration
+-   .gitignore
+-   default.nix
+-   Makefile
 
 ## Components
 -   docs/core.md
-
-## Build Configuration
--   default.nix
--   Makefile

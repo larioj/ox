@@ -6,7 +6,7 @@ import System.IO (getContents)
 import Data.List (intercalate)
 import Control.Monad (forM_, unless)
 import Crypto.Hash.SHA256 (hash)
-import Data.ByteString.Base64 (encode)
+import Data.ByteString.Base16 (encode)
 import Data.ByteString.Char8 (pack, unpack)
 
 baseDir = "ox"
@@ -20,7 +20,7 @@ getExports content =
       other -> []
 
 getHash :: String -> String
-getHash = ("BASE64:SHA256:" ++) . unpack . encode . hash . pack
+getHash = ("BASE16.SHA256." ++) . unpack . encode . hash . pack
 
 main = do
   oxDirExists <- doesDirectoryExist baseDir
@@ -32,5 +32,5 @@ main = do
   forM_ exports $ \export -> do
     let basename = intercalate "." [export, lang, hash, "ox"]
     let outpath = intercalate "/" [baseDir, basename]
-    putStrLn $ concat ["# nemo import (", export, ", ", hash, ")"]
+    putStrLn outpath
     writeFile outpath content

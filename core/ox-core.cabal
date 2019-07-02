@@ -8,7 +8,7 @@ library
                , directory
                , bytestring
                , cryptohash
-               , base64-bytestring
+               , base16-bytestring
 
 executable ox-core
   main-is: Main.hs
