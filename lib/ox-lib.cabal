@@ -1,4 +1,4 @@
-name:                ox-core
+name:                ox-lib
 version:             0.0.1
 license:             BSD3
 license-file:        LICENSE
@@ -8,7 +8,7 @@ build-type:          Simple
 extra-source-files:  ChangeLog.md
 cabal-version:       >=1.10
 
-executable ox-core
-  main-is:             Main.hs
+library
+  exposed-modules:     Util
   build-depends:       base -any, regex-pcre -any, containers -any, directory -any, bytestring -any, cryptohash -any, base16-bytestring -any, filepath -any
   default-language:    Haskell2010
