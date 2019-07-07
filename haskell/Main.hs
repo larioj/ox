@@ -63,12 +63,12 @@ generateModule outpath parent = do
   forM_ (getChildren contents) $
     generateModule outpath
   let hash = getHash parent
-  let outfull = joinPath [outpath, "Ox", "Ox" ++ hash ++ ".hs"]
-  let outContents = "module Ox.Ox" ++ hash ++ " where \n\n" ++ contents
+  let outfull = joinPath [outpath, "Ox" ++ hash ++ ".hs"]
+  let outContents = "module Ox" ++ hash ++ " where \n\n" ++ contents
   outfullExists <- doesFileExist outfull
   unless outfullExists $ writeFile outfull outContents
 
 main = do
   [outpath, top] <- getArgs
-  createDirectoryIfMissing True $ joinPath [outpath, "Ox"]
+  createDirectoryIfMissing True $ joinPath [outpath]
   generateModule outpath top

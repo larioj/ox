@@ -10,6 +10,7 @@ import Data.ByteString.Base16 (encode)
 import Data.ByteString.Char8 (pack, unpack)
 import Data.Map (Map, (!))
 import qualified Data.Map as Map
+import System.FilePath (joinPath)
 
 baseDir = "ox"
 
@@ -41,6 +42,9 @@ main = do
   let exports = getExports lang content
   forM_ exports $ \export -> do
     let basename = intercalate "." [export, hash, lang]
-    let outpath = intercalate "/" [baseDir, basename]
-    putStrLn outpath
+    let outpath = joinPath [baseDir, basename]
     writeFile outpath content
+  let basename = intercalate "." [hash, lang]
+  let outpath = joinPath [baseDir, basename]
+  writeFile outpath content
+  putStrLn outpath

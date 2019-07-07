@@ -1,15 +1,22 @@
 let
+  coreSpec = import core/core.nix;
+  haskellSpec = import haskell/haskell.nix;
+  oxlibSpec = import oxlib/oxlib.nix;
+  haskellImpuritySpec = import haskell-impurity/haskell-impurity.nix;
   config = {
     packageOverrides = pkgs: rec {
       haskellPackages = pkgs.haskellPackages.override {
         overrides = haskellPackagesNew: haskellPackagesOld: rec {
-          ox-lib = haskellPackagesNew.callPackage ./lib/ox-lib.cabal.nix { };
+          oxlib = pkgs.callPackage ./simple.nix { spec = oxlibSpec; };
         };
       };
     };
   };
   pkgs = import <nixpkgs> { inherit config; };
 in { 
-    ox-core = pkgs.haskellPackages.callPackage ./core/ox-core.cabal.nix { };
-    ox-haskell = pkgs.haskellPackages.callPackage ./haskell/ox-haskell.cabal.nix { };
+    oxlib = pkgs.haskellPackages.oxlib;
+    ox-core = pkgs.callPackage ./simple.nix { spec = coreSpec; };
+    ox-haskell = pkgs.callPackage ./simple.nix { spec = haskellSpec; };
+    ox-haskell-impurity =
+      pkgs.callPackage ./simple.nix { spec = haskellImpuritySpec; };
 }

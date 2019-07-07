@@ -1,6 +1,6 @@
 {
   src = ./.;
-  name = "ox-core";
+  name = "ox-haskell";
   version = "0.0.1";
   executable = {
     main = "Main.hs";
@@ -14,7 +14,6 @@
     "cryptohash"
     "base16-bytestring"
     "filepath"
-    "oxlib"
   ];
   cabalVersion = ">=1.10";
 }
