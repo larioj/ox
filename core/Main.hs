@@ -4,7 +4,7 @@ import System.Environment (getArgs)
 import System.Directory (doesDirectoryExist, createDirectory)
 import System.IO (getContents)
 import Data.List (intercalate)
-import Control.Monad (forM_, unless)
+import Control.Monad (forM_, unless, when)
 import Crypto.Hash.SHA256 (hash)
 import Data.ByteString.Base16 (encode)
 import Data.ByteString.Char8 (pack, unpack)
@@ -43,8 +43,9 @@ main = do
   forM_ exports $ \export -> do
     let basename = intercalate "." [export, hash, lang]
     let outpath = joinPath [baseDir, basename]
+    putStrLn outpath
     writeFile outpath content
   let basename = intercalate "." [hash, lang]
   let outpath = joinPath [baseDir, basename]
   writeFile outpath content
-  putStrLn outpath
+  when (length exports == 0) $ putStrLn outpath

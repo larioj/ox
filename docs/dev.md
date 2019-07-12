@@ -21,7 +21,7 @@
     $ rm result*
 
 ## Flow Test
-    $ ./ox.sh <<EOF
+    $ ./ox.sh <<EOF 2> /dev/null
     -- ox export tail
     tail :: [a] -> Maybe [a]
     tail [] = Nothing
