@@ -16,12 +16,24 @@ function! plum#ox#IsExport(ctx)
     return v:false
   endif
   if vsel[0] =~ '-- ox export'
+    let ctx.match = vsel
     return v:true
   endif
   return v:false
 endfunction
 
 function! plum#ox#ApplyCheckedExport(ctx)
+  let ctx = a:ctx
+  let executable = './ox.sh'
+  let vsel = ctx.match
+  let imports = plum#ox#GetImportList()
+  let cmd =
+        \ executable . " <<'EOF'\n" .
+        \ join(imports, "\n") . "\n" .
+        \ join(vsel, "\n") .
+        \ "\nEOF"
+  let ctx.match = cmd
+  return plum#term#SmartTerminal().apply(ctx)
 endfunction
 
 function! plum#ox#GetImportList()
@@ -33,9 +45,9 @@ function! plum#ox#GetImportList()
     if start < 0 && ln =~# '^import'
       let start = i
       let end = i
-    elseif ln ==# '' || ln[0] ==# ' ' || ln =~# '^import'
+    elseif start > -1 && (ln ==# '' || ln[0] ==# ' ' || ln =~# '^import' || ln =~# '^--')
       let end = i
-    else
+    elseif start > -1
       break
     endif 
     let i = i + 1
