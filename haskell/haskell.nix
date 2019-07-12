@@ -15,6 +15,7 @@
     "base16-bytestring"
     "filepath"
     "split"
+    "oxlib"
   ];
   cabalVersion = ">=1.10";
 }
