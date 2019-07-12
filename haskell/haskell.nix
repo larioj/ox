@@ -14,6 +14,7 @@
     "cryptohash"
     "base16-bytestring"
     "filepath"
+    "split"
   ];
   cabalVersion = ">=1.10";
 }

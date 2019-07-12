@@ -5,7 +5,8 @@ import Text.Regex.PCRE ((=~))
 import Data.List (intercalate)
 import Control.Monad (unless, forM_)
 import System.Directory (doesFileExist, createDirectoryIfMissing)
-import System.FilePath (joinPath, takeExtension, dropExtension)
+import System.FilePath (joinPath, takeExtension, dropExtension, takeBaseName)
+import Data.List.Split (splitOn)
 
 line :: [String] -> String
 line r = "^" ++ (untrimmed $ spaced r) ++ "$"
@@ -27,7 +28,7 @@ getMatches :: (String, String, String, [String]) -> [String]
 getMatches (_, _, _, r) = r
 
 getHash :: FilePath -> String
-getHash = tail . takeExtension . dropExtension
+getHash = last . splitOn "." . takeBaseName
 
 getChildren :: String -> [FilePath]
 getChildren contents = do

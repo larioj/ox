@@ -12,23 +12,18 @@
 -   haskell/haskell.nix
 -   haskell-impurity/Main.hs
 -   haskell-impurity/haskell-impurity.nix
--   lib/Util.hs
+-   oxlib/oxlib.nix
 -   ox.sh
+-   autoload/plum/ox.vim
 
 ## Build
     $ nix-build
+    $ rm result*
 
-## Impurities
-    $ tree .
-    $ result-3/bin/ox-haskell-impurity oxlib oxlib
-
-## Test
-    $ tree .
-    $ result/bin/ox-core hs <<EOF
-    -- ox export head
-    head :: [a] -> Maybe a
-    head [] = Nothing
-    head (a : rest) = Just a
+## Flow Test
+    $ ./ox.sh <<EOF
+    -- ox export tail
+    tail :: [a] -> Maybe [a]
+    tail [] = Nothing
+    tail (a : rest) = Just rest
     EOF
-    $ result-2/bin/ox-haskell oxlib \
-        ox/head.23519fe8a95c0a57286224ed219db813cbe08a2be70be7813ebf471018948947.hs

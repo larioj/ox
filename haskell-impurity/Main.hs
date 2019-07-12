@@ -33,7 +33,7 @@ generateNixSpec name modules impurities =
     quote s = "\"" ++ s ++ "\""
     repeatN n = concat . take n . repeat
     format indent =
-      intercalate (repeatN indent " " ++ "\n") . map quote
+      intercalate ("\n" ++ repeatN indent " ") . map quote
 
 main :: IO ()
 main = do
