@@ -26,14 +26,26 @@ function! plum#ox#ApplyCheckedExport(ctx)
   let ctx = a:ctx
   let executable = './ox.sh'
   let vsel = ctx.match
-  let imports = plum#ox#GetImportList()
+  let [start, end] = plum#ox#GetImportList()
+  let imports = getline(start, end)
+  let redir = ""
+  if ctx.shift
+    let redir = '2> /dev/null'
+  endif
   let cmd =
-        \ executable . " <<'EOF'\n" .
-        \ join(imports, "\n") . "\n" .
+        \ executable . " <<'EOF' " . redir  . " \n" .
+        \ join(imports, "\n") . "\n\n" .
         \ join(vsel, "\n") .
         \ "\nEOF"
-  let ctx.match = cmd
-  return plum#term#SmartTerminal().apply(ctx)
+  if ctx.shift
+    silent let import = system("/bin/bash -c " . shellescape(cmd))
+    let import = trim(import)
+    '<,'>d
+    call append(end, import)
+  else
+    let ctx.match = cmd
+    return plum#term#SmartTerminal().apply(ctx)
+  endif
 endfunction
 
 function! plum#ox#GetImportList()
@@ -52,7 +64,16 @@ function! plum#ox#GetImportList()
     endif 
     let i = i + 1
   endwhile
-  return getline(start, end)
+
+  if end > 3 && getline(end) =~# "-- ox export"
+    let end = end - 1
+  endif
+
+  if end > 2 && trim(getline(end)) =~# ""
+    let end = end - 1
+  endif
+
+  return [start, end]
 endfunction
 
 function! s:GetVisualSelection()

@@ -1,6 +1,9 @@
 #!/bin/bash
 
-file="$(result/bin/ox-core hs < /dev/stdin || exit 1)"
+file=''
+for f in $(result/bin/ox-core hs < /dev/stdin); do
+  file=$f
+done
 BASE="$(basename $file)"
 HASH="${BASE%.*}"
 NAME="${HASH%.*}"
@@ -13,8 +16,8 @@ if [ $? -eq 0 ]; then
   echo "import Ox${HASH} ($NAME)"
 else
   BASE=$(basename $file)
-  rm ox/*${BASE}
-  rm oxlib/*${BASE}
+  rm ox/*${HASH}.hs
+  rm oxlib/*${HASH}.hs
   result-3/bin/ox-haskell-impurity oxlib oxlib 1>&2
   nix-build 1>&2
   echo FAIL 1>&2
