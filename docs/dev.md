@@ -5,23 +5,24 @@
 -   simple.nix
 -   default.nix
 
+## Vim
+-   autoload/plum/ox.vim
+
 ## Sources
 -   core/Main.hs
 -   core/core.nix
 -   haskell/Main.hs
 -   haskell/haskell.nix
--   haskell-impurity/Main.hs
--   haskell-impurity/haskell-impurity.nix
 -   oxlib/oxlib.nix
 -   ox.sh
--   autoload/plum/ox.vim
 
 ## Build
     $ nix-build
     $ rm result*
 
 ## Flow Test
-    $ ./ox.sh <<EOF 2> /dev/null
+    $ ./ox.sh --quiet haskell store foo
+    $ result/bin/ox-core hs <<EOF
     -- ox export tail
     tail :: [a] -> Maybe [a]
     tail [] = Nothing

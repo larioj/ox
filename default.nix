@@ -2,7 +2,6 @@ let
   coreSpec = import core/core.nix;
   haskellSpec = import haskell/haskell.nix;
   oxlibSpec = import oxlib/oxlib.nix;
-  haskellImpuritySpec = import haskell-impurity/haskell-impurity.nix;
   config = {
     packageOverrides = pkgs: rec {
       haskellPackages = pkgs.haskellPackages.override {
@@ -17,6 +16,4 @@ in {
     oxlib = pkgs.haskellPackages.oxlib;
     ox-core = pkgs.callPackage ./simple.nix { spec = coreSpec; };
     ox-haskell = pkgs.callPackage ./simple.nix { spec = haskellSpec; };
-    ox-haskell-impurity =
-      pkgs.callPackage ./simple.nix { spec = haskellImpuritySpec; };
 }

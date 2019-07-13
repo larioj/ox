@@ -7,12 +7,8 @@
   };
   dependencies = [
     "base"
-    "regex-pcre"
     "containers"
     "directory"
-    "bytestring"
-    "cryptohash"
-    "base16-bytestring"
     "filepath"
     "oxlib"
   ];
