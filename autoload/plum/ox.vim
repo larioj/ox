@@ -57,7 +57,7 @@ function! plum#ox#GetImportList()
     if start < 0 && ln =~# '^import '
       let start = i
       let end = i
-    elseif start > -1 && (ln ==# '' || ln[0] ==# ' ' || ln =~# '^import' || ln =~# '^--')
+    elseif start > -1 && (ln ==# '' || ln[0] ==# ' ' || ln =~# '^import ' || ln =~# '^--')
       let end = i
     elseif start > -1
       break
