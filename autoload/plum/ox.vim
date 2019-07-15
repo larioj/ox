@@ -24,7 +24,7 @@ endfunction
 
 function! plum#ox#ApplyCheckedExport(ctx)
   let ctx = a:ctx
-  let executable = './ox.sh'
+  let executable = 'ox'
   let vsel = ctx.match
   let [start, end] = plum#ox#GetImportList()
   let imports = getline(start, end)
