@@ -19,6 +19,10 @@ import Ox1cb05558db7e795771f81d06051ecfecf204778ea709f34695d06de9e9284cfe (getMa
 import Oxb7a00fa696fcef772655d362ae3453e0badff869b84f961c13230172fd7cb933 (oxModule)
 import Oxb4e01c9c75b148605bd73178da03cc59f2fc4f1fbc19b6016a7e773282ef3679 (getOxExports)
 
+-- ox export importList
+importList :: String
+importList = "\\(" ++ untrimmed "(\\S+)" ++ "\\)"
+
 data Args
   = ListExports FilePath
   | BuildImpurities FilePath String
@@ -105,8 +109,7 @@ generateNixSpec name modules impurities =
     format indent =
       intercalate ("\n" ++ repeatN indent " ") . map quote
 
-importList :: String
-importList = "\\(" ++ untrimmed "(\\S+)" ++ "\\)"
+
 
 getHash :: FilePath -> String
 getHash = last . splitOn "." . takeBaseName

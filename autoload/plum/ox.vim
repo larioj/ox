@@ -54,7 +54,7 @@ function! plum#ox#GetImportList()
   let i = 1
   while i <= line('$')
     let ln = getline(i)
-    if start < 0 && ln =~# '^import'
+    if start < 0 && ln =~# '^import '
       let start = i
       let end = i
     elseif start > -1 && (ln ==# '' || ln[0] ==# ' ' || ln =~# '^import' || ln =~# '^--')
