@@ -1,0 +1,27 @@
+#!/bin/bash
+
+OX_DIR=ox
+HASKELL_DIR=oxlib
+HASKELL_NIX=oxlib
+NODE=$(ox-core hs < /dev/stdin)
+BASE="$(basename $NODE)"
+HASH="${BASE%.*}"
+
+ox-haskell build node "$HASKELL_DIR" "$NODE" 1>&2 &&
+  ox-haskell build impurities "$HASKELL_DIR" "$HASKELL_NIX" 1>&2 &&
+  nix-build 1>&2
+if [ $? -eq 0 ]; then
+  SEP=""
+  NAMES=""
+  for n in $(ox-haskell list exports $NODE); do
+    NAMES="${NAMES}${SEP}${n}"
+    SEP=", "
+  done
+  echo "import Ox${HASH} ($NAMES)"
+else
+  rm ${OX_DIR}/${HASH}.hs
+  rm ${HASKELL_DIR}/Ox${HASH}.hs
+  ox-haskell build impurities "$HASKELL_DIR" "$HASKELL_NIX" 1>&2
+  nix-build 1>&2
+  echo FAIL 1>&2
+fi

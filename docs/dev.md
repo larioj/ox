@@ -14,17 +14,18 @@
 -   haskell/Main.hs
 -   haskell/haskell.nix
 -   oxlib/oxlib.nix
--   ox.sh
+-   cli/ox
 
 ## Build
     $ nix-build
+    $ nix-env -f default.nix -i
+    $ result/bin/ox
     $ rm result*
 
-## Flow Test
-    $ ./ox.sh --quiet haskell store foo
-    $ result/bin/ox-core hs <<EOF
+## Test ox
+    $ cli/ox <<EOF
     -- ox export tail
     tail :: [a] -> Maybe [a]
-    tail [] = Nothing
+    tail [] = Nothin
     tail (a : rest) = Just rest
     EOF
