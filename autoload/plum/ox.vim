@@ -15,7 +15,7 @@ function! plum#ox#IsExport(ctx)
   if len(vsel) < 1
     return v:false
   endif
-  if vsel[0] =~ '-- ox export'
+  if vsel[0] =~ '-- ox export '
     let ctx.match = vsel
     return v:true
   endif

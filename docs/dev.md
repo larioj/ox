@@ -26,6 +26,6 @@
     $ cli/ox <<EOF
     -- ox export tail
     tail :: [a] -> Maybe [a]
-    tail [] = Nothin
+    tail [] = Nothing
     tail (a : rest) = Just rest
     EOF
