@@ -1,6 +1,6 @@
 {
   src = ./.;
-  name = "cabal";
+  name = "oxlib";
   version = "0.0.1";
   library = {
     exposedModules = [

@@ -13,7 +13,7 @@
 -   core/cabal.nix
 -   hs/Main.hs
 -   hs/cabal.nix
--   oxlib/cabal.nix
+-   oxlib/oxlib.nix
 -   cli/ox
 
 ## Build
@@ -25,6 +25,7 @@
       'stylish-haskell -i haskell/Main.hs'
 
 ## Test ox
+    $ ox-haskell build impurities oxlib cabal
     $ cli/ox <<EOF
     -- ox export tail
     tail :: [a] -> Maybe [a]
