@@ -10,17 +10,19 @@
 
 ## Sources
 -   core/Main.hs
--   core/core.nix
--   haskell/Main.hs
--   haskell/haskell.nix
--   oxlib/oxlib.nix
+-   core/cabal.nix
+-   hs/Main.hs
+-   hs/cabal.nix
+-   oxlib/cabal.nix
 -   cli/ox
 
 ## Build
     $ nix-build
     $ nix-env -f default.nix -i
-    $ result/bin/ox
-    $ rm result*
+
+## Format
+    $ nix-shell --packages stylish-haskell --run \
+      'stylish-haskell -i haskell/Main.hs'
 
 ## Test ox
     $ cli/ox <<EOF

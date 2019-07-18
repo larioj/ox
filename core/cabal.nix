@@ -11,6 +11,7 @@
     "directory"
     "filepath"
     "oxlib"
+    "optparse-applicative"
   ];
   cabalVersion = ">=1.10";
 }

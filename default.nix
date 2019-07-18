@@ -1,7 +1,7 @@
 let
-  coreSpec = import core/core.nix;
-  haskellSpec = import haskell/haskell.nix;
-  oxlibSpec = import oxlib/oxlib.nix;
+  coreSpec = import core/cabal.nix;
+  haskellSpec = import hs/cabal.nix;
+  oxlibSpec = import oxlib/cabal.nix;
   config = {
     packageOverrides = pkgs: rec {
       haskellPackages = pkgs.haskellPackages.override {
