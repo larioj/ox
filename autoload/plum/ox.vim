@@ -73,6 +73,10 @@ function! plum#ox#GetImportList()
     let end = end - 1
   endif
 
+  if start > 1 && getline(start - 1) =~# "-- ox impurity"
+    let start = start - 1
+  endif
+
   return [start, end]
 endfunction
 
